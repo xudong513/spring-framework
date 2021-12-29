@@ -17,42 +17,49 @@
 package org.springframework.core;
 
 /**
- * Common interface for managing aliases. Serves as a super-interface for
- * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry}.
+ * AliasRegistry是用于管理别名的通用接口,定义了别名的简单增删等操作;
+ * <p>
+ * BeanDefinitionRegistry: AliasRegistry的子接口(扩展接口),使BeanDefinition的注册接口具有别名管理的功能;
+ * SimpleAliasRegistry: AliasRegistry的简单实现;
+ * SimpleBeanDefinitionRegistry: BeanDefinitionRegistry的简单实现;
  *
- * @author Juergen Hoeller
+ * @see SimpleAliasRegistry
+ * @see org.springframework.beans.factory.support.BeanDefinitionRegistry
+ * @see org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry
  * @since 2.5.2
  */
 public interface AliasRegistry {
 
 	/**
-	 * Given a name, register an alias for it.
-	 * @param name the canonical name
-	 * @param alias the alias to be registered
-	 * @throws IllegalStateException if the alias is already in use
-	 * and may not be overridden
+	 * 为指定名称注册一个别名
+	 *
+	 * @param name  原名称
+	 * @param alias 要注册的别名
+	 * @throws IllegalStateException 如果别名已在被使用,并且不允许别名覆盖;
 	 */
 	void registerAlias(String name, String alias);
 
 	/**
-	 * Remove the specified alias from this registry.
-	 * @param alias the alias to remove
-	 * @throws IllegalStateException if no such alias was found
+	 * 从注册中心中移除指定别名
+	 *
+	 * @param alias 待移除的别名
+	 * @throws IllegalStateException 如果未找到指定别名
 	 */
 	void removeAlias(String alias);
 
 	/**
-	 * Determine whether the given name is defined as an alias
-	 * (as opposed to the name of an actually registered component).
-	 * @param name the name to check
-	 * @return whether the given name is an alias
+	 * 判断给定的名称是否是别名
+	 *
+	 * @param name 待校验的名称
+	 * @return 给定的名称是否是别名
 	 */
 	boolean isAlias(String name);
 
 	/**
-	 * Return the aliases for the given name, if defined.
-	 * @param name the name to check for aliases
-	 * @return the aliases, or an empty array if none
+	 * 获取给定name的所有别名信息
+	 *
+	 * @param name 给定名称
+	 * @return 返回别名集, 如果没有别名则返回空数组
 	 */
 	String[] getAliases(String name);
 
