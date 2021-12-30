@@ -22,9 +22,8 @@ import org.springframework.core.serializer.Serializer;
 import org.springframework.util.Assert;
 
 /**
- * A {@link Converter} that delegates to a
- * {@link org.springframework.core.serializer.Serializer}
- * to convert an object to a byte array.
+ * 序列化转换器,将对象转换为字节数组
+ * 该转换器{@link Converter}代理了一个序列化器{@link Serializer} ,转换方法的实现实际上是通过序列化器的序列化方法完成的.
  *
  * @author Gary Russell
  * @author Mark Fisher
@@ -32,34 +31,26 @@ import org.springframework.util.Assert;
  */
 public class SerializingConverter implements Converter<Object, byte[]> {
 
+	/** 被代理的序列化器 */
 	private final Serializer<Object> serializer;
 
-
-	/**
-	 * Create a default {@code SerializingConverter} that uses standard Java serialization.
-	 */
+	/** 创建一个序列化转换器{@code SerializingConverter}，默认使用标准的Java序列化 */
 	public SerializingConverter() {
 		this.serializer = new DefaultSerializer();
 	}
 
-	/**
-	 * Create a {@code SerializingConverter} that delegates to the provided {@link Serializer}.
-	 */
+	/** 创建一个序列化转换器{@code SerializingConverter},并指定其代理的序列化器 {@link Serializer}. */
 	public SerializingConverter(Serializer<Object> serializer) {
 		Assert.notNull(serializer, "Serializer must not be null");
 		this.serializer = serializer;
 	}
 
-
-	/**
-	 * Serializes the source object and returns the byte array result.
-	 */
+	/** 序列化源对象并返回对应的字节数组 */
 	@Override
 	public byte[] convert(Object source) {
-		try  {
+		try {
 			return this.serializer.serializeToByteArray(source);
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			throw new SerializationFailedException("Failed to serialize object using " +
 					this.serializer.getClass().getSimpleName(), ex);
 		}

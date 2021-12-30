@@ -27,9 +27,9 @@ import org.springframework.core.serializer.Serializer;
 import org.springframework.util.Assert;
 
 /**
- * A convenient delegate with pre-arranged configuration state for common
- * serialization needs. Implements {@link Serializer} and {@link Deserializer}
- * itself, so can also be passed into such more specific callback methods.
+ * SerializationDelegate类实现{@link Serializer} 和 {@link Deserializer}接口，
+ * 同时持有Serializer和Deserializer的对象，用于处理序列化、反序列化的工作,
+ * 默认使用DefaultSerializer和DefaultDeserializer
  *
  * @author Juergen Hoeller
  * @since 4.3
@@ -42,8 +42,8 @@ public class SerializationDelegate implements Serializer<Object>, Deserializer<O
 
 
 	/**
-	 * Create a {@code SerializationDelegate} with a default serializer/deserializer
-	 * for the given {@code ClassLoader}.
+	 * 创建一个序列化代理对象,带有默认的序列化器/反序列化器
+	 *
 	 * @see DefaultDeserializer
 	 * @see DefaultDeserializer#DefaultDeserializer(ClassLoader)
 	 */
@@ -52,11 +52,7 @@ public class SerializationDelegate implements Serializer<Object>, Deserializer<O
 		this.deserializer = new DefaultDeserializer(classLoader);
 	}
 
-	/**
-	 * Create a {@code SerializationDelegate} with the given serializer/deserializer.
-	 * @param serializer the {@link Serializer} to use (never {@code null)}
-	 * @param deserializer the {@link Deserializer} to use (never {@code null)}
-	 */
+	/** 使用指定的序列化器/反序列化器来创建一个序列化代理对象 @param serializer */
 	public SerializationDelegate(Serializer<Object> serializer, Deserializer<Object> deserializer) {
 		Assert.notNull(serializer, "Serializer must not be null");
 		Assert.notNull(deserializer, "Deserializer must not be null");

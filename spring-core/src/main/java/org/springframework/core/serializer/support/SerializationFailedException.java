@@ -19,8 +19,8 @@ package org.springframework.core.serializer.support;
 import org.springframework.core.NestedRuntimeException;
 
 /**
- * Wrapper for the native IOException (or similar) when a
- * {@link org.springframework.core.serializer.Serializer} or
+ * 原生 IOException 的包装器
+ * when a {@link org.springframework.core.serializer.Serializer} or
  * {@link org.springframework.core.serializer.Deserializer} failed.
  * Thrown by {@link SerializingConverter} and {@link DeserializingConverter}.
  *
@@ -31,19 +31,13 @@ import org.springframework.core.NestedRuntimeException;
 @SuppressWarnings("serial")
 public class SerializationFailedException extends NestedRuntimeException {
 
-	/**
-	 * Construct a {@code SerializationException} with the specified detail message.
-	 * @param message the detail message
-	 */
+	/** 使用指定的消息构造一个 SerializationFailedException */
 	public SerializationFailedException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Construct a {@code SerializationException} with the specified detail message
-	 * and nested exception.
-	 * @param message the detail message
-	 * @param cause the nested exception
+	 * 使用指定的消息和异常构造一个 SerializationFailedException
 	 */
 	public SerializationFailedException(String message, Throwable cause) {
 		super(message, cause);

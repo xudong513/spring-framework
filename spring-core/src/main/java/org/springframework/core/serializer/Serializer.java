@@ -21,34 +21,34 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * A strategy interface for streaming an object to an OutputStream.
+ * Spring序列化器接口：策略接口,用于将对象Object转化为输出流OutputStream
  *
+ * @param <T> 对象的类型
  * @author Gary Russell
  * @author Mark Fisher
  * @author Juergen Hoeller
- * @since 3.0.5
- * @param <T> the object type
  * @see Deserializer
+ * @since 3.0.5
  */
 @FunctionalInterface
 public interface Serializer<T> {
 
 	/**
-	 * Write an object of type T to the given OutputStream.
-	 * <p>Note: Implementations should not close the given OutputStream
-	 * (or any decorators of that OutputStream) but rather leave this up
-	 * to the caller.
-	 * @param object the object to serialize
-	 * @param outputStream the output stream
-	 * @throws IOException in case of errors writing to the stream
+	 * 对象序列化：将类型为 T 的对象写入给定的OutputStream
+	 * <p>注意：该方法的实现不应关闭给定的 OutputStream（或该 OutputStream 的装饰器）,而应将其留给调用者
+	 *
+	 * @param object       要序列化的对象
+	 * @param outputStream 待写入的OutputStream
+	 * @throws IOException 流写入时出错
 	 */
 	void serialize(T object, OutputStream outputStream) throws IOException;
 
 	/**
-	 * Turn an object of type T into a serialized byte array.
-	 * @param object the object to serialize
-	 * @return the resulting byte array
-	 * @throws IOException in case of serialization failure
+	 * 对象序列化为数组：将类型为 T 的对象转换为序列化的字节数组
+	 *
+	 * @param object 要序列化的对象
+	 * @return 序列化的字节数组
+	 * @throws IOException 序列化失败时抛出异常
 	 * @since 5.2.7
 	 */
 	default byte[] serializeToByteArray(T object) throws IOException {

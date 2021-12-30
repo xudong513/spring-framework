@@ -21,23 +21,22 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * A strategy interface for converting from data in an InputStream to an Object.
+ * Spring反序列化器接口：策略接口,用于将输入流InputStream中的数据转换为对象Object
  *
+ * @param <T> 对象类型
  * @author Gary Russell
  * @author Mark Fisher
  * @author Juergen Hoeller
- * @since 3.0.5
- * @param <T> the object type
  * @see Serializer
+ * @since 3.0.5
  */
 @FunctionalInterface
 public interface Deserializer<T> {
 
 	/**
-	 * Read (assemble) an object of type T from the given InputStream.
-	 * <p>Note: Implementations should not close the given InputStream
-	 * (or any decorators of that InputStream) but rather leave this up
-	 * to the caller.
+	 * 从给定的输入流InputStream反序列化(读取)一个类型为 T 的对象
+	 * <p>注意：该方法的实现不应关闭给定的 InputStream（或该 InputStream 的任何装饰器），而应将其留给调用者
+	 *
 	 * @param inputStream the input stream
 	 * @return the deserialized object
 	 * @throws IOException in case of errors reading from the stream
@@ -45,10 +44,11 @@ public interface Deserializer<T> {
 	T deserialize(InputStream inputStream) throws IOException;
 
 	/**
-	 * Read (assemble) an object of type T from the given byte array.
-	 * @param serialized the byte array
-	 * @return the deserialized object
-	 * @throws IOException in case of deserialization failure
+	 * 从给定的字节数组中反序列化(读取)一个类型为 T 的对象
+	 *
+	 * @param serialized 字节数组
+	 * @return 反序列化的对象
+	 * @throws IOException 反序列化失败时抛出异常
 	 * @since 5.2.7
 	 */
 	default T deserializeFromByteArray(byte[] serialized) throws IOException {
